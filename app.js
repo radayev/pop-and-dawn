@@ -12,6 +12,7 @@
   };
   let cart = store.get("pd_cart", {});
   let checkout = store.get("pd_checkout", {});
+  let lastOrder = store.get("pd_last_order", null);
   const saveCart = () => { store.set("pd_cart", cart); updateCount(); };
   const cartItems = () => Object.entries(cart).map(([id, qty]) => ({ p: byId(id), qty })).filter((x) => x.p && x.qty > 0);
   const totals = () => {
@@ -107,7 +108,7 @@
         <p class="muted">${esc(p.short)}</p>
         <div class="price">${money(p.price)} <span class="muted" style="font-weight:400;font-size:14px">/ ${esc(p.size)}</span></div>
         <div class="card-actions">
-          <button class="btn small" data-add="${p.id}">Add to cart</button>
+          <button class="btn small" data-add="${p.id}" aria-label="${p.tags.includes("Coming later") ? "Pre-order" : "Add"} ${esc(p.name)}">${p.tags.includes("Coming later") ? "Pre-order" : "Add to cart"}</button>
           <a class="btn small secondary" href="#/product/${p.id}">Details</a>
         </div>
       </div>
@@ -126,9 +127,9 @@
       </div></section>
       <section><div class="wrap">
         <div class="features">
-          <div class="feature"><div class="icon">🍿</div><h3>Popcorn, not puffs</h3><p class="muted">Whole-grain popcorn clusters give a light, loud crunch that holds up in milk.</p></div>
-          <div class="feature"><div class="icon">🍫</div><h3>Real dark chocolate</h3><p class="muted">Sweet and salty, like a treat, with less added sugar than a typical chocolate cereal.</p></div>
-          <div class="feature"><div class="icon">🌱</div><h3>Plant-based</h3><p class="muted">No dairy. Great with oat milk, in yogurt, or straight from the pouch.</p></div>
+          <div class="feature"><div class="icon" aria-hidden="true">🍿</div><h3>Popcorn, not puffs</h3><p class="muted">Whole-grain popcorn clusters give a light, loud crunch, in a bowl or by the handful.</p></div>
+          <div class="feature"><div class="icon" aria-hidden="true">🍫</div><h3>Real dark chocolate</h3><p class="muted">Sweet and salty, like a treat, aiming for less sugar than a typical chocolate cereal.</p></div>
+          <div class="feature"><div class="icon" aria-hidden="true">🌱</div><h3>Plant-based</h3><p class="muted">No dairy. Great with oat milk, in yogurt, or straight from the box.</p></div>
         </div>
       </div></section>
       <section style="padding-top:0"><div class="wrap">
@@ -157,11 +158,12 @@
             <p class="lead">${esc(p.short)}</p>
             <div class="price" style="font-size:26px">${money(p.price)} <span class="muted" style="font-weight:400;font-size:15px">/ ${esc(p.size)}</span></div>
             <div class="btn-row" style="align-items:center">
-              <div class="qty" aria-label="Quantity"><button data-qty="-1" aria-label="Less">−</button><span id="qty">1</span><button data-qty="1" aria-label="More">+</button></div>
+              <div class="qty" role="group" aria-label="Quantity"><button data-qty="-1" aria-label="Decrease quantity">−</button><span id="qty" aria-live="polite">1</span><button data-qty="1" aria-label="Increase quantity">+</button></div>
               <button class="btn" data-add-qty="${p.id}">Add to cart</button>
             </div>
             <table class="facts" aria-label="Product details">${p.facts.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("")}</table>
             <p class="note">Protein and sugar goals are product-development targets for this prototype. Exact nutrition facts come after lab testing.</p>
+            <p class="note"><strong>Popcorn can be a choking risk. Not for children under 4.</strong></p>
           </div>
         </div>
       </div></section>`;
@@ -178,8 +180,8 @@
           ${items.map(({ p, qty }) => `
             <div class="cart-row">
               <img src="${p.image}" alt="">
-              <div><strong>${esc(p.name)}</strong><br><span class="muted">${money(p.price)} · ${esc(p.size)}</span><br><button class="link-btn" data-remove="${p.id}">Remove</button></div>
-              <div class="qty"><button data-cart="${p.id}" data-d="-1" aria-label="Less">−</button><span>${qty}</span><button data-cart="${p.id}" data-d="1" aria-label="More">+</button></div>
+              <div><strong>${esc(p.name)}</strong><br><span class="muted">${money(p.price)} · ${esc(p.size)}</span><br><button class="link-btn" data-remove="${p.id}" aria-label="Remove ${esc(p.name)}">Remove</button></div>
+              <div class="qty" role="group" aria-label="${esc(p.name)} quantity"><button data-cart="${p.id}" data-d="-1" aria-label="Decrease ${esc(p.name)} quantity">−</button><span>${qty}</span><button data-cart="${p.id}" data-d="1" aria-label="Increase ${esc(p.name)} quantity">+</button></div>
               <strong>${money(p.price * qty)}</strong>
             </div>`).join("")}
         </div>
@@ -225,11 +227,11 @@
     },
 
     confirm: (id) => {
-      const o = store.get("pd_last_order", null);
+      const o = lastOrder;
       if (!o || o.id !== id) return views.notfound();
       return `
       <section><div class="wrap confirm panel">
-        <div class="big">🎉</div>
+        <div class="big" aria-hidden="true">🎉</div>
         <div class="steps" style="justify-content:center"><span>1 Cart</span><span>2 Shipping &amp; payment</span><span class="on">3 Confirmation</span></div>
         <h1>Thanks, ${esc(o.name.split(" ")[0])}!</h1>
         <p>Your demo order <strong>${esc(o.id)}</strong> is confirmed. A confirmation would go to <strong>${esc(o.email)}</strong>.</p>
@@ -244,8 +246,8 @@
       <section><div class="wrap story">
         <div>
           <h1>Our story</h1>
-          <p>Pop &amp; Dawn started as a sea salt dark chocolate popcorn cluster, a snack idea from our teammate's market research. Sweet and salty chocolate snacks sell well, but no one was turning popcorn into a breakfast cereal. So we did.</p>
-          <p>Each box is made by a U.S. contract cereal manufacturer from whole-grain popcorn, dark chocolate and sea salt, with no dairy.</p>
+          <p>Pop &amp; Dawn started as a sea salt dark chocolate popcorn cluster, a snack idea from our teammate's market research. Sweet and salty chocolate snacks sell well, and our search found no popcorn breakfast cereal on U.S. shelves today. So we made one.</p>
+          <p>We plan to make each box with YouBar, a contract cereal maker in Los Angeles, from whole-grain popcorn, pea-protein crisps, dark chocolate and sea salt, with no dairy.</p>
           <p class="muted">We used AI tools to research the market, test early ideas with a simulated consumer panel and build this site. People made every final decision, and we plan real taste tests before launch.</p>
           <div class="btn-row"><a class="btn" href="#/shop">Try it</a></div>
         </div>
@@ -265,17 +267,19 @@
   }
 
   // ---------- router ----------
-  function route() {
+  function route(soft) {
     const parts = (location.hash.replace(/^#\/?/, "") || "").split("/");
     const name = parts[0] || "home";
-    const view = views[name] || views.notfound;
+    const view = Object.prototype.hasOwnProperty.call(views, name) ? views[name] : views.notfound;
     app.innerHTML = view(parts[1]);
+    if (soft === true) return;
     app.classList.remove("page-enter"); void app.offsetWidth; app.classList.add("page-enter");
     if (name === "home") { popField(); splitHeadline(); }
     reveals();
     if (name === "confirm" && app.querySelector(".confirm")) confetti();
     document.querySelectorAll("[data-nav]").forEach((a) => a.classList.toggle("active", a.dataset.nav === (name === "product" ? "shop" : name)));
-    document.title = (name === "home" ? "" : (name.charAt(0).toUpperCase() + name.slice(1)) + " | ") + "Pop & Dawn";
+    const h1 = app.querySelector("h1");
+    document.title = (name === "home" || !h1 ? "" : h1.textContent.trim() + " | ") + "Pop & Dawn";
     window.scrollTo(0, 0);
     app.focus({ preventScroll: true });
   }
@@ -288,27 +292,39 @@
     if (b.dataset.add) add(b.dataset.add, 1, b);
     if (b.dataset.qty) { const q = document.getElementById("qty"); q.textContent = Math.max(1, Math.min(20, +q.textContent + +b.dataset.qty)); }
     if (b.dataset.addQty) add(b.dataset.addQty, +document.getElementById("qty").textContent, b);
-    if (b.dataset.cart) { const id = b.dataset.cart; cart[id] = Math.max(0, (cart[id] || 0) + +b.dataset.d); if (!cart[id]) delete cart[id]; saveCart(); route(); }
-    if (b.dataset.remove) { delete cart[b.dataset.remove]; saveCart(); route(); }
+    if (b.dataset.cart) {
+      const id = b.dataset.cart, d = b.dataset.d;
+      cart[id] = Math.max(0, (cart[id] || 0) + +d); if (!cart[id]) delete cart[id];
+      saveCart(); route(true);
+      const again = app.querySelector(`[data-cart="${id}"][data-d="${d}"]`);
+      (again || app).focus();
+    }
+    if (b.dataset.remove) { delete cart[b.dataset.remove]; saveCart(); route(true); app.focus(); }
   });
 
   app.addEventListener("submit", (e) => {
     if (e.target.id !== "checkoutForm") return;
     e.preventDefault();
-    const f = Object.fromEntries(new FormData(e.target).entries());
+    const f = Object.fromEntries([...new FormData(e.target).entries()].map(([k, v]) => [k, String(v).trim()]));
     const errs = {};
     if (!f.name.trim()) errs.name = "Enter your name.";
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) errs.email = "Enter a valid email.";
     if (!f.address.trim()) errs.address = "Enter a street address.";
     if (!f.city.trim()) errs.city = "Enter a city.";
-    if (!/^\d{5}$/.test(f.zip.trim())) errs.zip = "Enter a 5-digit ZIP code.";
-    document.querySelectorAll("[data-err]").forEach((el) => (el.textContent = errs[el.dataset.err] || ""));
+    if (!/^\d{5}$/.test(f.zip)) errs.zip = "Enter a 5-digit ZIP code.";
+    document.querySelectorAll("[data-err]").forEach((el) => {
+      const k = el.dataset.err, input = document.getElementById(k);
+      el.id = "err-" + k; el.textContent = errs[k] || "";
+      if (input) { input.setAttribute("aria-describedby", el.id); input.setAttribute("aria-invalid", errs[k] ? "true" : "false"); }
+    });
     checkout = { name: f.name, email: f.email, address: f.address, city: f.city, zip: f.zip };
     store.set("pd_checkout", checkout);
-    if (Object.keys(errs).length) return;
+    const firstErr = Object.keys(errs)[0];
+    if (firstErr) { document.getElementById(firstErr).focus(); return; }
     const t = totals();
     const id = "PD-" + Date.now().toString(36).toUpperCase().slice(-6);
-    store.set("pd_last_order", { id, name: f.name, email: f.email, city: f.city, total: t.total, lines: cartItems().map(({ p, qty }) => ({ name: p.name, qty, total: p.price * qty })) });
+    lastOrder = { id, name: f.name, email: f.email, city: f.city, total: t.total, lines: cartItems().map(({ p, qty }) => ({ name: p.name, qty, total: p.price * qty })) };
+    store.set("pd_last_order", lastOrder);
     cart = {}; saveCart();
     location.hash = "#/confirm/" + id;
   });

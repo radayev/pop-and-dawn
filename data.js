@@ -3,10 +3,10 @@
 window.SITE = {
   brand: "Pop & Dawn",
   tagline: "Wake up to popcorn crunch.",
-  heroLead: "Sea Salt Dark Chocolate Popcorn Crunch is a plant-based breakfast cereal made from popcorn clusters coated in dark chocolate and finished with sea salt. More protein and less sugar than classic kids' chocolate cereals. Pour it in a bowl, or snack on it straight from the box.",
+  heroLead: "Sea Salt Dark Chocolate Popcorn Crunch is a plant-based breakfast cereal made from popcorn clusters coated in dark chocolate and finished with sea salt. It is made to have more protein and less sugar than classic kids' chocolate cereals (targets until lab testing). Pour it in a bowl, or snack on it straight from the box.",
   shippingFlat: 4.99,
   freeShippingOver: 30,
-  taxRate: 0.08875, // NYC sales tax, used only for the checkout simulation
+  taxRate: 0.0825, // Austin, TX sales tax (pilot city), used only for the checkout simulation
   products: [
     {
       id: "sea-salt-dark-chocolate",
@@ -16,7 +16,7 @@ window.SITE = {
       size: "8 oz box",
       image: "assets/box-original.svg",
       tags: ["Plant-based", "Whole-grain popcorn"],
-      facts: [["Base", "Whole-grain popcorn clusters"], ["Coating", "Dark chocolate, sea salt"], ["Dairy", "None (plant-based)"], ["Goal", "More protein, less sugar than kids' chocolate cereals"]]
+      facts: [["Base", "Whole-grain popcorn clusters and pea-protein crisps"], ["Coating", "Dark chocolate, sea salt"], ["Dairy", "None (plant-based)"], ["Goal", "More protein, less sugar than kids' chocolate cereals"]]
     },
     {
       id: "peanut-butter-dark-chocolate",
@@ -25,7 +25,7 @@ window.SITE = {
       price: 7.99,
       size: "8 oz box",
       image: "assets/box-pb.svg",
-      tags: ["Plant-based", "Contains peanuts"],
+      tags: ["Coming later", "Plant-based", "Contains peanuts"],
       facts: [["Base", "Whole-grain popcorn clusters"], ["Coating", "Dark chocolate, peanut butter"], ["Dairy", "None (plant-based)"], ["Allergen", "Contains peanuts"]]
     },
     {
@@ -35,8 +35,8 @@ window.SITE = {
       price: 7.99,
       size: "8 oz box",
       image: "assets/box-cinnamon.svg",
-      tags: ["Plant-based", "Chocolate-free"],
-      facts: [["Base", "Whole-grain popcorn clusters"], ["Coating", "Cinnamon, cane sugar, sea salt"], ["Dairy", "None (plant-based)"], ["Goal", "Less sugar than classic cinnamon cereals"]]
+      tags: ["Coming later", "Plant-based", "Chocolate-free"],
+      facts: [["Base", "Whole-grain popcorn clusters"], ["Coating", "Cinnamon, sea salt"], ["Dairy", "None (plant-based)"], ["Goal", "Less sugar than classic cinnamon cereals"]]
     }
   ]
 };
