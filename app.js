@@ -127,9 +127,9 @@
       </div></section>
       <section><div class="wrap">
         <div class="features">
-          <div class="feature"><div class="icon" aria-hidden="true">🍿</div><h3>Popcorn, not puffs</h3><p class="muted">Whole-grain popcorn clusters give a light, loud crunch, in a bowl or by the handful.</p></div>
-          <div class="feature"><div class="icon" aria-hidden="true">🍫</div><h3>Real dark chocolate</h3><p class="muted">Sweet and salty, like a treat, aiming for less sugar than a typical chocolate cereal.</p></div>
-          <div class="feature"><div class="icon" aria-hidden="true">🌱</div><h3>Plant-based</h3><p class="muted">No dairy. Great with oat milk, in yogurt, or straight from the box.</p></div>
+          <div class="feature"><div class="icon" aria-hidden="true">🍿</div><h3>Popcorn, not puffs</h3><p class="muted">Our whole-grain popcorn clusters give a light, satisfying crunch, in a bowl or by the handful.</p></div>
+          <div class="feature"><div class="icon" aria-hidden="true">🍫</div><h3>Real dark chocolate</h3><p class="muted">A sweet and salty combo, aiming for less sugar than regular chocolate cereals.</p></div>
+          <div class="feature"><div class="icon" aria-hidden="true">🌱</div><h3>Plant-based</h3><p class="muted">No dairy here. Delicious with oat milk, mixed into yogurt, or on its own.</p></div>
         </div>
       </div></section>
       <section style="padding-top:0"><div class="wrap">
@@ -246,9 +246,9 @@
       <section><div class="wrap story">
         <div>
           <h1>Our story</h1>
-          <p>Pop &amp; Dawn started as a sea salt dark chocolate popcorn cluster, a snack idea from our teammate's market research. Sweet and salty chocolate snacks sell well, and our search found no popcorn breakfast cereal on U.S. shelves today. So we made one.</p>
-          <p>We plan to make each box with YouBar, a contract cereal maker in Los Angeles, from whole-grain popcorn, pea-protein crisps, dark chocolate and sea salt, with no dairy.</p>
-          <p class="muted">We used AI tools to research the market, test early ideas with a simulated consumer panel and build this site. People made every final decision, and we plan real taste tests before launch.</p>
+          <p>Pop &amp; Dawn started with a sea salt dark chocolate popcorn cluster, inspired by our teammate's market research. Sweet and salty snacks are a hit, and our search found no popcorn breakfast cereal on U.S. shelves. So we made one.</p>
+          <p>We plan to make each box with YouBar, a cereal maker in Los Angeles, using whole-grain popcorn, pea-protein crisps, dark chocolate and sea salt, with no dairy.</p>
+          <p class="muted">We used AI tools to explore the market, test early ideas with a simulated consumer panel and build this site. Real people made every final decision, and we plan real taste tests before launch.</p>
           <div class="btn-row"><a class="btn" href="#/shop">Try it</a></div>
         </div>
         <div class="hero-art"><img src="${S.products[1].image}" alt="${esc(S.products[1].name)} box"></div>
