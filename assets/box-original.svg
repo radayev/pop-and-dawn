@@ -13,8 +13,8 @@
   <rect x="10" y="318" width="280" height="72" rx="0" fill="#3A2418"/>
   <text x="150" y="347" text-anchor="middle" font-family="Fredoka, Arial Rounded MT Bold, Arial, sans-serif" font-weight="600" font-size="20" fill="#F7EEDC">Sea Salt</text>
   <text x="150" y="372" text-anchor="middle" font-family="Fredoka, Arial Rounded MT Bold, Arial, sans-serif" font-weight="600" font-size="20" fill="#F28C38">Dark Chocolate</text>
-  <circle cx="246" cy="118" r="30" fill="#F28C38" stroke="#3A2418" stroke-width="2"/>
-  <text x="246" y="114" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="10" fill="#3A2418">PLANT-</text>
-  <text x="246" y="127" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="10" fill="#3A2418">BASED</text>
+  <circle cx="246" cy="138" r="30" fill="#F28C38" stroke="#3A2418" stroke-width="2"/>
+  <text x="246" y="134" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="10" fill="#3A2418">PLANT-</text>
+  <text x="246" y="147" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="10" fill="#3A2418">BASED</text>
   <text x="54" y="390" font-family="Inter, Arial, sans-serif" font-size="9" fill="#F7EEDC" opacity="0.8">NET WT 8 OZ (227 g)</text>
 </svg>
