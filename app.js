@@ -21,8 +21,81 @@
     return { sub, ship, tax, total: sub + ship + tax };
   };
   function updateCount() { document.getElementById("cartCount").textContent = cartItems().reduce((s, x) => s + x.qty, 0); }
-  function add(id, qty = 1) { cart[id] = (cart[id] || 0) + qty; saveCart(); toast("Added to cart: " + byId(id).name); }
+  function add(id, qty = 1, fromEl) { cart[id] = (cart[id] || 0) + qty; saveCart(); flyToCart(fromEl); toast("Added to cart: " + byId(id).name); }
   function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 1800); }
+
+
+  // ---------- animation helpers ----------
+  const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const KERNEL = '<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="#fff8ec" stroke="#3a2418" stroke-width="1.4"><circle cx="16" cy="18" r="8"/><circle cx="10" cy="13" r="6"/><circle cx="22" cy="13" r="6"/><circle cx="16" cy="9" r="6"/></g><circle cx="16" cy="22" r="3" fill="#f28c38"/></svg>';
+  const CHOC = '<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="#5a3424" stroke="#3a2418" stroke-width="1.4"><circle cx="16" cy="18" r="8"/><circle cx="10" cy="13" r="6"/><circle cx="22" cy="13" r="6"/><circle cx="16" cy="9" r="6"/></g><circle cx="13" cy="12" r="1.3" fill="#fff"/><circle cx="20" cy="17" r="1.1" fill="#fff"/></svg>';
+  const rand = (a, b) => a + Math.random() * (b - a);
+  function popField() {
+    const hero = app.querySelector(".hero");
+    if (!hero || reduced) return;
+    const field = document.createElement("div");
+    field.className = "popfield";
+    for (let i = 0; i < 18; i++) {
+      const k = document.createElement("div");
+      k.className = "kernel";
+      k.innerHTML = i % 3 === 0 ? CHOC : KERNEL;
+      k.style.left = rand(2, 96) + "%";
+      k.style.setProperty("--delay", rand(0, 6).toFixed(2) + "s");
+      k.style.setProperty("--dur", rand(5, 9).toFixed(2) + "s");
+      k.style.setProperty("--dx", rand(-120, 120).toFixed(0) + "px");
+      k.style.setProperty("--spin", rand(2, 5).toFixed(2) + "s");
+      const sz = rand(18, 34).toFixed(0) + "px";
+      k.style.width = sz; k.style.height = sz;
+      field.appendChild(k);
+    }
+    hero.prepend(field);
+  }
+  function splitHeadline() {
+    const h = app.querySelector(".hero h1");
+    if (!h || reduced) return;
+    h.innerHTML = h.textContent.split(" ").map((w, i) => `<span class="word" style="--i:${i}">${esc(w)}</span>`).join(" ");
+  }
+  let io;
+  function reveals() {
+    const els = app.querySelectorAll(".feature, .product-card, .panel, .story > div, .detail > div, h2");
+    if (reduced || !("IntersectionObserver" in window)) return;
+    io && io.disconnect();
+    io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
+    els.forEach((el, i) => { el.classList.add("reveal"); el.style.setProperty("--rd", (i % 4) * 90 + "ms"); io.observe(el); });
+  }
+  function flyToCart(fromEl) {
+    const count = document.getElementById("cartCount");
+    if (reduced || !fromEl) { count.classList.remove("bump"); void count.offsetWidth; count.classList.add("bump"); return; }
+    const a = fromEl.getBoundingClientRect(), b = count.getBoundingClientRect();
+    for (let i = 0; i < 6; i++) {
+      const s = document.createElement("div");
+      s.className = "burst";
+      s.innerHTML = i % 2 ? CHOC : KERNEL;
+      s.style.left = a.left + a.width / 2 - 9 + "px"; s.style.top = a.top + a.height / 2 - 9 + "px";
+      s.style.setProperty("--bx", rand(-70, 70).toFixed(0) + "px"); s.style.setProperty("--by", rand(-80, -20).toFixed(0) + "px");
+      document.body.appendChild(s); setTimeout(() => s.remove(), 750);
+    }
+    const f = document.createElement("div");
+    f.className = "flyer"; f.innerHTML = CHOC;
+    f.style.left = a.left + a.width / 2 - 15 + "px"; f.style.top = a.top + a.height / 2 - 15 + "px";
+    document.body.appendChild(f);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      f.style.transform = `translate(${b.left + b.width / 2 - (a.left + a.width / 2)}px, ${b.top + b.height / 2 - (a.top + a.height / 2)}px) scale(0.5) rotate(360deg)`;
+      f.style.opacity = "0.4";
+    }));
+    setTimeout(() => { f.remove(); count.classList.remove("bump"); void count.offsetWidth; count.classList.add("bump"); }, 760);
+  }
+  function confetti() {
+    if (reduced) return;
+    for (let i = 0; i < 40; i++) {
+      const c = document.createElement("div");
+      c.className = "confetti"; c.innerHTML = i % 3 === 0 ? CHOC : KERNEL;
+      c.style.left = rand(0, 100) + "vw";
+      c.style.setProperty("--fd", rand(2, 3.6).toFixed(2) + "s"); c.style.setProperty("--fdl", rand(0, 0.8).toFixed(2) + "s");
+      c.style.setProperty("--fx", rand(-120, 120).toFixed(0) + "px"); c.style.setProperty("--fr", rand(200, 900).toFixed(0) + "deg");
+      document.body.appendChild(c); setTimeout(() => c.remove(), 4600);
+    }
+  }
 
   // ---------- views ----------
   const productCard = (p) => `
@@ -197,6 +270,10 @@
     const name = parts[0] || "home";
     const view = views[name] || views.notfound;
     app.innerHTML = view(parts[1]);
+    app.classList.remove("page-enter"); void app.offsetWidth; app.classList.add("page-enter");
+    if (name === "home") { popField(); splitHeadline(); }
+    reveals();
+    if (name === "confirm" && app.querySelector(".confirm")) confetti();
     document.querySelectorAll("[data-nav]").forEach((a) => a.classList.toggle("active", a.dataset.nav === (name === "product" ? "shop" : name)));
     document.title = (name === "home" ? "" : (name.charAt(0).toUpperCase() + name.slice(1)) + " | ") + "Pop & Dawn";
     window.scrollTo(0, 0);
@@ -208,9 +285,9 @@
   app.addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (!b) return;
-    if (b.dataset.add) add(b.dataset.add);
+    if (b.dataset.add) add(b.dataset.add, 1, b);
     if (b.dataset.qty) { const q = document.getElementById("qty"); q.textContent = Math.max(1, Math.min(20, +q.textContent + +b.dataset.qty)); }
-    if (b.dataset.addQty) add(b.dataset.addQty, +document.getElementById("qty").textContent);
+    if (b.dataset.addQty) add(b.dataset.addQty, +document.getElementById("qty").textContent, b);
     if (b.dataset.cart) { const id = b.dataset.cart; cart[id] = Math.max(0, (cart[id] || 0) + +b.dataset.d); if (!cart[id]) delete cart[id]; saveCart(); route(); }
     if (b.dataset.remove) { delete cart[b.dataset.remove]; saveCart(); route(); }
   });
