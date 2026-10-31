@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Pop and Dawn logo">
+  <circle cx="32" cy="32" r="31" fill="#F7EEDC" stroke="#3A2418" stroke-width="2"/>
+  <g fill="#F28C38">
+    <circle cx="32" cy="40" r="13"/>
+    <circle cx="22" cy="35" r="7"/><circle cx="42" cy="35" r="7"/><circle cx="27" cy="28" r="7"/><circle cx="37" cy="28" r="7"/>
+  </g>
+  <g fill="#FFD7A8"><circle cx="28" cy="31" r="2.6"/><circle cx="38" cy="33" r="2.2"/></g>
+  <g stroke="#3A2418" stroke-width="2.6" stroke-linecap="round">
+    <line x1="32" y1="7" x2="32" y2="13"/><line x1="15" y1="13" x2="19" y2="18"/><line x1="49" y1="13" x2="45" y2="18"/>
+    <line x1="7" y1="27" x2="13" y2="28"/><line x1="57" y1="27" x2="51" y2="28"/>
+  </g>
+  <rect x="6" y="44" width="52" height="14" fill="#3A2418"/>
+  <path d="M6 44 H58" stroke="#3A2418" stroke-width="3"/>
+</svg>
