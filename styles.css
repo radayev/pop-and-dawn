@@ -181,6 +181,9 @@ input:focus, select:focus { outline: 3px solid #ffd19c; border-color: var(--dawn
 .moment figcaption { padding: 16px 18px; }
 .moment figcaption h3 { font-size: 20px; margin: 0 0 4px; }
 .moment figcaption p { margin: 0; }
+.ad { margin: 0; }
+.ad video { display: block; width: 100%; aspect-ratio: 16 / 9; background: var(--cocoa); border-radius: var(--radius); box-shadow: var(--shadow); }
+.ad figcaption { margin-top: 10px; font-size: 14px; }
 .story-photo img { aspect-ratio: 16 / 9; }
 .hero h1 { text-wrap: balance; }
 .grid-products { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }

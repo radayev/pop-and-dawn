@@ -134,6 +134,15 @@
         </div>
       </div></section>
       <section style="padding-top:0"><div class="wrap">
+        <h2>Watch the ad</h2>
+        <figure class="ad">
+          <video controls playsinline preload="none" poster="assets/video/pop-and-dawn-ad-poster.jpg" aria-label="Pop &amp; Dawn 30-second commercial with our jingle">
+            <source src="assets/video/pop-and-dawn-ad.mp4" type="video/mp4">
+          </video>
+          <figcaption class="muted">Our 30-second spot, set to the Pop &amp; Dawn jingle. AI-generated concept ad.</figcaption>
+        </figure>
+      </div></section>
+      <section style="padding-top:0"><div class="wrap">
         <h2>The lineup</h2>
         <div class="grid-products">${S.products.map(productCard).join("")}</div>
       </div></section>`,
