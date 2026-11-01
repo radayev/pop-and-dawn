@@ -2,7 +2,7 @@
 // Packaging and ingredient lines follow the team's pouch design. Nutrition numbers come after lab testing, so the site makes no protein or sugar claims.
 window.SITE = {
   brand: "Pop & Dawn",
-  tagline: "Eat it. Pour it. Top it.",
+  tagline: "Eat it. Pour it. Top it.", // non-breaking spaces keep each phrase on one line
   heroLead: "Sea Salt Dark Chocolate Popcorn Clusters are a plant-based, sweet-and-salty snack: crunchy whole-grain popcorn in real dark chocolate with a sea salt finish. Grab a handful from the bag, pour on milk for a quick cereal, or sprinkle them on yogurt.",
   shippingFlat: 4.99,
   freeShippingOver: 30,
