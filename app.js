@@ -139,7 +139,7 @@
           <video controls playsinline preload="none" poster="assets/video/pop-and-dawn-ad-poster.jpg" aria-label="Pop &amp; Dawn 30-second commercial with our jingle">
             <source src="assets/video/pop-and-dawn-ad.mp4" type="video/mp4">
           </video>
-          <figcaption class="muted">Our 30-second spot, set to the Pop &amp; Dawn jingle. AI-generated concept ad.</figcaption>
+          <figcaption class="muted">Our 30-second spot, set to the Pop &amp; Dawn jingle.</figcaption>
         </figure>
       </div></section>
       <section style="padding-top:0"><div class="wrap">
