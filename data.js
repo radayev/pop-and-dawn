@@ -1,9 +1,9 @@
 // Brand and product data. Edit here; the pages read from this object.
-// Protein and sugar figures are development targets, so the site describes them without exact grams.
+// Packaging and ingredient lines follow the team's pouch design. Nutrition numbers come after lab testing, so the site makes no protein or sugar claims.
 window.SITE = {
   brand: "Pop & Dawn",
-  tagline: "Wake up to popcorn crunch.",
-  heroLead: "Sea Salt Dark Chocolate Popcorn Crunch is a plant-based breakfast cereal made from crunchy popcorn clusters coated in rich dark chocolate and sprinkled with sea salt. It's designed to have more protein and less sugar than classic kids' chocolate cereals (targets until lab testing). Enjoy it in a bowl, or grab a handful straight from the box.",
+  tagline: "Eat it. Pour it. Top it.",
+  heroLead: "Sea Salt Dark Chocolate Popcorn Clusters are a plant-based, sweet-and-salty snack: crunchy whole-grain popcorn in real dark chocolate with a sea salt finish. Grab a handful from the bag, pour on milk for a quick cereal, or sprinkle them on yogurt.",
   shippingFlat: 4.99,
   freeShippingOver: 30,
   taxRate: 0.0825, // Austin, TX sales tax (pilot city), used only for the checkout simulation
@@ -11,32 +11,46 @@ window.SITE = {
     {
       id: "sea-salt-dark-chocolate",
       name: "Sea Salt Dark Chocolate",
-      short: "The original: popcorn clusters in dark chocolate with a sprinkle of sea salt.",
+      short: "The original: whole-grain popcorn clusters in real dark chocolate with a sea salt finish.",
       price: 7.99,
-      size: "8 oz box",
-      image: "assets/box-original.svg",
+      size: "8 oz pouch",
+      image: "assets/photos/pack-sea-salt-dark-chocolate.jpg",
+      photo: "assets/photos/flavor-sea-salt-dark-chocolate.jpg",
       tags: ["Plant-based", "Whole-grain popcorn"],
-      facts: [["Base", "Whole-grain popcorn clusters and pea-protein crisps"], ["Coating", "Dark chocolate, sea salt"], ["Dairy", "None (plant-based)"], ["Goal", "More protein, less sugar than kids' chocolate cereals"]]
+      facts: [["Base", "Whole-grain popcorn"], ["Coating", "Real dark chocolate, sea salt finish"], ["Dairy", "None (plant-based)"], ["Free from", "Artificial flavors and colors"]]
     },
     {
       id: "peanut-butter-dark-chocolate",
       name: "Peanut Butter Dark Chocolate",
-      short: "Our classic clusters with roasted peanut butter folded in.",
+      short: "Our dark chocolate clusters with a creamy peanut butter flavor.",
       price: 7.99,
-      size: "8 oz box",
-      image: "assets/box-pb.svg",
+      size: "8 oz pouch",
+      image: "assets/photos/pack-peanut-butter-dark-chocolate.jpg",
+      photo: "assets/photos/flavor-peanut-butter-dark-chocolate.jpg",
       tags: ["Coming later", "Plant-based", "Contains peanuts"],
-      facts: [["Base", "Whole-grain popcorn clusters"], ["Coating", "Dark chocolate, peanut butter"], ["Dairy", "None (plant-based)"], ["Allergen", "Contains peanuts"]]
+      facts: [["Base", "Whole-grain popcorn"], ["Coating", "Real dark chocolate, creamy peanut butter flavor"], ["Dairy", "None (plant-based)"], ["Allergen", "Contains peanuts"]]
     },
     {
       id: "cinnamon-sea-salt",
       name: "Cinnamon Sea Salt",
-      short: "Warm cinnamon and sea salt on crunchy popcorn clusters, just without the chocolate.",
+      short: "Whole-grain popcorn clusters with cinnamon and a sea salt finish, no chocolate.",
       price: 7.99,
-      size: "8 oz box",
-      image: "assets/box-cinnamon.svg",
+      size: "8 oz pouch",
+      image: "assets/photos/pack-cinnamon-sea-salt.jpg",
+      photo: "assets/photos/flavor-cinnamon-sea-salt.jpg",
       tags: ["Coming later", "Plant-based", "Chocolate-free"],
-      facts: [["Base", "Whole-grain popcorn clusters"], ["Coating", "Cinnamon, sea salt"], ["Dairy", "None (plant-based)"], ["Goal", "Less sugar than classic cinnamon cereals"]]
+      facts: [["Base", "Whole-grain popcorn"], ["Coating", "Cinnamon seasoning, sea salt finish"], ["Dairy", "None (plant-based)"], ["Free from", "Artificial flavors and colors"]]
+    },
+    {
+      id: "white-chocolate-caramel",
+      name: "White Chocolate Caramel",
+      short: "Golden popcorn clusters with white chocolate and caramel flavors.",
+      price: 7.99,
+      size: "8 oz pouch",
+      image: "assets/photos/pack-white-chocolate-caramel.jpg",
+      photo: "assets/photos/flavor-white-chocolate-caramel.jpg",
+      tags: ["Coming later", "Plant-based"],
+      facts: [["Base", "Whole-grain popcorn"], ["Flavors", "White chocolate, caramel"], ["Dairy", "None (plant-based)"], ["Free from", "Artificial flavors and colors"]]
     }
   ]
 };

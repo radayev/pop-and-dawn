@@ -58,7 +58,7 @@
   }
   let io;
   function reveals() {
-    const els = app.querySelectorAll(".feature, .product-card, .panel, .story > div, .detail > div, h2");
+    const els = app.querySelectorAll(".feature, .product-card, .panel, .moment, .story > div, .detail > div, h2");
     if (reduced || !("IntersectionObserver" in window)) return;
     io && io.disconnect();
     io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
@@ -101,7 +101,7 @@
   // ---------- views ----------
   const productCard = (p) => `
     <article class="product-card">
-      <a class="media" href="#/product/${p.id}"><img src="${p.image}" alt="${esc(p.name)} box"></a>
+      <a class="media" href="#/product/${p.id}"><img src="${p.image}" alt="${esc(p.name)} Popcorn Clusters pouch" loading="lazy"></a>
       <div class="body">
         <div>${p.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
         <h3>${esc(p.name)}</h3>
@@ -118,18 +118,19 @@
     home: () => `
       <section class="hero"><div class="wrap hero-grid">
         <div>
-          <span class="eyebrow">New breakfast cereal</span>
+          <span class="eyebrow">New popcorn snack</span>
           <h1>${esc(S.tagline)}</h1>
           <p class="lead">${esc(S.heroLead)}</p>
-          <div class="btn-row"><a class="btn" href="#/shop">Shop the cereal</a><a class="btn secondary" href="#/about">Our story</a></div>
+          <div class="btn-row"><a class="btn" href="#/shop">Shop the clusters</a><a class="btn secondary" href="#/about">Our story</a></div>
         </div>
-        <div class="hero-art"><img src="${S.products[0].image}" alt="${esc(S.products[0].name)} box"></div>
+        <div class="hero-art"><img class="photo-hero" src="assets/photos/hero.jpg" alt="${esc(S.products[0].name)} Popcorn Clusters pouch with clusters on a wooden table"></div>
       </div></section>
       <section><div class="wrap">
-        <div class="features">
-          <div class="feature"><div class="icon" aria-hidden="true">🍿</div><h3>Popcorn, not puffs</h3><p class="muted">Our whole-grain popcorn clusters give a light, satisfying crunch, in a bowl or by the handful.</p></div>
-          <div class="feature"><div class="icon" aria-hidden="true">🍫</div><h3>Real dark chocolate</h3><p class="muted">A sweet and salty combo, aiming for less sugar than regular chocolate cereals.</p></div>
-          <div class="feature"><div class="icon" aria-hidden="true">🌱</div><h3>Plant-based</h3><p class="muted">No dairy here. Delicious with oat milk, mixed into yogurt, or on its own.</p></div>
+        <h2>One snack, three ways</h2>
+        <div class="moments">
+          <figure class="moment"><img src="assets/photos/eat-it.jpg" alt="A hand reaching into a Pop &amp; Dawn pouch at a desk" loading="lazy"><figcaption><h3>Eat it</h3><p class="muted">Grab a handful straight from the resealable pouch, at your desk or on the go.</p></figcaption></figure>
+          <figure class="moment"><img src="assets/photos/pour-it.jpg" alt="Oat milk poured over a bowl of dark chocolate popcorn clusters" loading="lazy"><figcaption><h3>Pour it</h3><p class="muted">Add cold oat milk and it becomes a quick, crunchy cereal.</p></figcaption></figure>
+          <figure class="moment"><img src="assets/photos/top-it.jpg" alt="A yogurt bowl with berries topped with popcorn clusters" loading="lazy"><figcaption><h3>Top it</h3><p class="muted">Sprinkle it on yogurt, smoothie bowls or dessert.</p></figcaption></figure>
         </div>
       </div></section>
       <section style="padding-top:0"><div class="wrap">
@@ -151,7 +152,10 @@
       <section><div class="wrap">
         <p><a href="#/shop">← Back to shop</a></p>
         <div class="detail">
-          <div class="media"><img src="${p.image}" alt="${esc(p.name)} box"></div>
+          <div>
+            <div class="media"><img src="${p.image}" alt="${esc(p.name)} Popcorn Clusters pouch"></div>
+            <img class="detail-photo" src="${p.photo}" alt="${esc(p.name)} clusters in a bowl next to the pouch" loading="lazy">
+          </div>
           <div>
             <div>${p.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
             <h1>${esc(p.name)}</h1>
@@ -162,7 +166,7 @@
               <button class="btn" data-add-qty="${p.id}">Add to cart</button>
             </div>
             <table class="facts" aria-label="Product details">${p.facts.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("")}</table>
-            <p class="note">Protein and sugar goals are product-development targets for this prototype. Exact nutrition facts come after lab testing.</p>
+            <p class="note">Exact nutrition facts come after lab testing.</p>
             <p class="note"><strong>Popcorn can be a choking risk. Not for children under 4.</strong></p>
           </div>
         </div>
@@ -171,7 +175,7 @@
 
     cart: () => {
       const items = cartItems();
-      if (!items.length) return `<section><div class="wrap"><h1>Your cart</h1><div class="panel"><p>Your cart is empty.</p><a class="btn" href="#/shop">Shop the cereal</a></div></div></section>`;
+      if (!items.length) return `<section><div class="wrap"><h1>Your cart</h1><div class="panel"><p>Your cart is empty.</p><a class="btn" href="#/shop">Shop the clusters</a></div></div></section>`;
       const t = totals();
       return `
       <section><div class="wrap two-col">
@@ -246,12 +250,12 @@
       <section><div class="wrap story">
         <div>
           <h1>Our story</h1>
-          <p>Pop &amp; Dawn started with a sea salt dark chocolate popcorn cluster, inspired by our teammate's market research. Sweet and salty snacks are a hit, and our search found no popcorn breakfast cereal on U.S. shelves. So we made one.</p>
-          <p>We plan to make each box with YouBar, a cereal maker in Los Angeles, using whole-grain popcorn, pea-protein crisps, dark chocolate and sea salt, with no dairy.</p>
+          <p>Pop &amp; Dawn started with our teammate's market research. In a data set of 166 snack products, cookies earned the most money and chocolate snacks sold well, but there was no popcorn cluster at all. So we made one: whole-grain popcorn in real dark chocolate with a sea salt finish.</p>
+          <p>It is a snack first. It also works as a quick cereal with milk or as a topping for yogurt. We plan to make it with YouBar, a certified cereal and granola maker in Los Angeles, and pack it in nitrogen-flushed pouches to keep it crunchy.</p>
           <p class="muted">We used AI tools to explore the market, test early ideas with a simulated consumer panel and build this site. Real people made every final decision, and we plan real taste tests before launch.</p>
           <div class="btn-row"><a class="btn" href="#/shop">Try it</a></div>
         </div>
-        <div class="hero-art"><img src="${S.products[1].image}" alt="${esc(S.products[1].name)} box"></div>
+        <figure class="moment story-photo"><img src="assets/photos/dawn-patrol.jpg" alt="A Dawn Patrol sampling cart handing out cups of popcorn clusters to students on a campus"><figcaption>Concept for our "Dawn Patrol" campus sampling cart.</figcaption></figure>
       </div></section>`,
 
     notfound: () => `<section><div class="wrap"><h1>Page not found</h1><a class="btn" href="#/">Go home</a></div></section>`,
